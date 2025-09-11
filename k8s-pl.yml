@@ -1,0 +1,14 @@
+---
+- name: Configure Kubernetes nodes
+  hosts: all
+  become: yes
+  roles:
+    - role: kubernetes
+      tags: init
+
+- name: Validate Kubernetes cluster
+  hosts: mgm
+  become: yes
+  roles:
+    - role: kubernetes
+      tags: validate

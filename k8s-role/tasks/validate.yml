@@ -1,0 +1,22 @@
+---
+- name: Check cluster status
+  command: kubectl get nodes -o wide
+  environment:
+    KUBECONFIG: "/home/{{ k8s_user }}/.kube/config"
+  register: cluster_status
+  changed_when: false
+
+- name: Display cluster status
+  debug:
+    msg: "{{ cluster_status.stdout_lines }}"
+
+- name: Check pod status
+  command: kubectl get pods -A -o wide
+  environment:
+    KUBECONFIG: "/home/{{ k8s_user }}/.kube/config"
+  register: pod_status
+  changed_when: false
+
+- name: Display pod status
+  debug:
+    msg: "{{ pod_status.stdout_lines }}"
