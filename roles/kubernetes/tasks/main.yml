@@ -1,18 +1,18 @@
 ---
 - name: Include repository configuration
   include_tasks: repos.yml
-  tags: init
+  tags: init,nodes
 
 - name: Include node configuration
   include_tasks: node.yml
-  tags: init
+  tags: init,nodes
 
 - name: Include master initialization
   include_tasks: master.yml
   when: "'mgm' in group_names"
-  tags: init
+  tags: init,master
 
 - name: Include cluster validation
   include_tasks: validate.yml
   when: "'mgm' in group_names"
-  tags: validate
+  tags: val
