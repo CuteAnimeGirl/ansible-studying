@@ -4,9 +4,3 @@
   become: yes
   roles:
     - role: kubernetes
-
-- name: Validate Kubernetes cluster
-  hosts: mgm
-  become: yes
-  roles:
-    - role: kubernetes
