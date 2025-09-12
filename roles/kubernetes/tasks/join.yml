@@ -10,4 +10,4 @@
 - name: Debug join command
   debug:
     msg: "{{ hostvars[groups['mgm'][0]]['join_command']['stdout'] }}"
-  when: "'mgm' in group_names"
+  when: "'wrk' in group_names"
