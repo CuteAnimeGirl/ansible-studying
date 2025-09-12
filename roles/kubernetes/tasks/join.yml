@@ -9,5 +9,5 @@
 
 - name: Debug join command
   debug:
-    msg: "Join command: {{ join_command.stdout }}"
+    msg: "{{ hostvars[groups['mgm'][0]]['join_command']['stdout'] }}"
   when: "'mgm' in group_names"
