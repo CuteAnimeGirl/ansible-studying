@@ -9,7 +9,7 @@
 
 - name: deb
   debug:
-    msg: "{{ join_command.stdout_lines }}"
+    msg: "{{ join_command }}"
 
 #- name: Join worker nodes to cluster
 #  command: "{{ join_command.results[0].stdout }}"

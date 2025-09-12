@@ -9,7 +9,7 @@
 
 - name: Include master initialization
   import_tasks: master.yml
-  when: mgm in group_names
+  when: "'mgm' in group_names"
   tags: master
 
 - name: Include worker join
@@ -19,5 +19,5 @@
 
 - name: Include cluster validation
   import_tasks: validate.yml
-  when: mgm in group_names
+  when: "'mgm' in group_names"
   tags: validate
