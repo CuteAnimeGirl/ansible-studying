@@ -14,7 +14,6 @@
 
 - name: Include worker join
   import_tasks: join.yml
-  when: "'wrk' in group_names"
   tags: join
 
 - name: Include cluster validation
