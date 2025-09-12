@@ -9,7 +9,7 @@
 - name: Join worker nodes to cluster
 #  command: "{{ join_command }}"
   debug:
-    msg: "{{ join_command_result }}"
+    msg: "{{ join_command }}"
   when: 
     - "'wrk' in group_names"
     - join_command is defined
