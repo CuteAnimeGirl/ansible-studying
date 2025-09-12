@@ -1,18 +1,18 @@
 ---
 - name: Include repository configuration
-  include_tasks: repos.yml
+  import_tasks: repos.yml
   tags: repos
 
 - name: Include node configuration
-  include_tasks: node.yml
+  import_tasks: node.yml
   tags: node
 
 - name: Include master initialization
-  include_tasks: master.yml
+  import_tasks: master.yml
   when: "'mgm' in group_names"
   tags: master
 
 - name: Include cluster validation
-  include_tasks: validate.yml
+  import_tasks: validate.yml
   when: "'mgm' in group_names"
   tags: validate
