@@ -18,4 +18,3 @@ all:
           ansible_host: k8s-worker3.lan
         k8s-worker4:
           ansible_host: k8s-worker4.lan
-##
