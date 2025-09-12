@@ -104,4 +104,5 @@
         name: kubelet
         enabled: yes
         state: started
+
   when: kubelet_service.status.ActiveState not in ['active', 'activating']

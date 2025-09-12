@@ -38,14 +38,4 @@
       environment:
         KUBECONFIG: "/home/{{ k8s_user }}/.kube/config"
 
-    - name: Extract join command
-      command: kubeadm token create --print-join-command
-      environment:
-        KUBECONFIG: "/home/{{ k8s_user }}/.kube/config"
-      register: join_command
-
-    - name: Display join command
-      debug:
-        msg: "{{ join_command.stdout }}"
-
   when: not kube_config.stat.exists
