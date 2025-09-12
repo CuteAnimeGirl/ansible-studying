@@ -4,7 +4,12 @@
     path: /etc/kubernetes/admin.conf
   register: kube_config
 
-- name: Initialize Kubernetes cluster if not exists
+- name: Skip master initialization
+  debug:
+    msg: "Skipping master initialization - Kubernetes cluster already exists"
+  when: kube_config.stat.exists
+
+- name: Initialize Kubernetes cluster
   block:
     - name: Initialize Kubernetes cluster
       command: kubeadm init --pod-network-cidr={{ pod_network_cidr }}
