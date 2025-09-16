@@ -2,7 +2,7 @@
 - name: Check if node is already part of cluster
   environment:
     KUBECONFIG: "/home/{{ k8s_user }}/.kube/config"
-  command: kubectl get node {{ inventory_hostname }}
+  command: kubectl get node {{ inventory_hostname.split('.')[0] }}
   register: node_check
   delegate_to: "{{ groups['mgm'][0] }}"
   failed_when: false
@@ -36,6 +36,6 @@
   command: "{{ hostvars[groups['mgm'][0]]['join_command']['stdout'] }}"
   when: 
     - "'wrk' in group_names"
-    - kubelet_service.status.ActiveState.stdout == 'active'
-    - hostvars[groups['mgm'][0]]['join_command'] is defined
+    - kubelet_service.status.ActiveState == 'active'
+    - hostvars[groups['mgm'][0]]['join_command']['stdout'] is defined
     - node_check.rc != 0
