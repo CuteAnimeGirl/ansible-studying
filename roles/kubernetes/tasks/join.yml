@@ -37,4 +37,4 @@
 
 - name: deb
   debug:
-    msg: "{{ hostvars[groups['mgm'][0]]['join_command'] }}"
+    msg: "{{ join_command }}"
