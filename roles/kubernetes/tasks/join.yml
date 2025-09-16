@@ -18,7 +18,6 @@
   run_once: true
   when: 
     - "'wrk' in group_names"
-    - node_check.rc != 0
 
 - name: Check if kubelet is already active on worker
   systemd:
