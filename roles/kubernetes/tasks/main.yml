@@ -12,7 +12,7 @@
   when: "'mgm' in group_names"
   tags: master
 
-- name: Include worker join
+- name: Include worker join2
   import_tasks: join.yml
   tags: join
 
