@@ -9,6 +9,11 @@
   changed_when: false
   when: "'wrk' in group_names"
 
+- name: deb
+  debug:
+    msg: "{{ node_check }}"
+  when: "'wrk' in group_names"
+
 - name: Get join command from master
   environment:
     KUBECONFIG: "/home/{{ k8s_user }}/.kube/config"
@@ -27,14 +32,10 @@
   changed_when: false
   when: "'wrk' in group_names"
 
-#- name: Join worker nodes to cluster
-#  command: "{{ hostvars[groups['mgm'][0]]['join_command'] }}"
-#  when: 
-#    - "'wrk' in group_names"
-#    - kubelet_service.status.ActiveState == 'active'
-#    - hostvars[groups['mgm'][0]]['join_command'] is defined
-#    - node_check.rc != 0
-
-- name: deb
-  debug:
-    msg: "{{ join_command }}"
+- name: Join worker nodes to cluster
+  command: "{{ hostvars[groups['mgm'][0]]['join_command']['stdout'] }}"
+  when: 
+    - "'wrk' in group_names"
+    - kubelet_service.status.ActiveState.stdout == 'active'
+    - hostvars[groups['mgm'][0]]['join_command'] is defined
+    - node_check.rc != 0
