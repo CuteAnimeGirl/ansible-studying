@@ -27,6 +27,10 @@
   changed_when: false
   when: "'wrk' in group_names"
 
+- name: deb
+  debug:
+    msg: "{{ node_check }}"
+
 - name: Join worker nodes to cluster
   command: "{{ hostvars[groups['mgm'][0]]['join_command']['stdout'] }}"
   when: 
