@@ -29,7 +29,7 @@
 
 - name: deb
   debug:
-    msg: "{{ node_check.rc }}"
+    msg: "{{ hostvars[groups['mgm'][0]]['join_command'] }}"
 
 - name: Join worker nodes to cluster
   command: "{{ hostvars[groups['mgm'][0]]['join_command']['stdout'] }}"
