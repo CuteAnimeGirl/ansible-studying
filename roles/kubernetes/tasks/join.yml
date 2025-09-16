@@ -30,6 +30,8 @@
 - name: deb
   debug:
     msg: "{{ hostvars[groups['mgm'][0]]['join_command'] }}"
+  when: 
+    - "'wrk' in group_names"
 
 - name: Join worker nodes to cluster
   command: "{{ hostvars[groups['mgm'][0]]['join_command']['stdout'] }}"
