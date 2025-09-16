@@ -7,7 +7,6 @@
   delegate_to: "{{ groups['mgm'][0] }}"
   failed_when: false
   changed_when: false
-  when: "'wrk' in group_names"
 
 - name: Get join command from master
   environment:
