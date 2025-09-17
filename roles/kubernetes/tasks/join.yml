@@ -23,11 +23,17 @@
   changed_when: false
   when: "'wrk' in group_names"
 
-- name: deb
+- name: deb1
   debug:
-    msg: "{{ hostvars[groups['mgm'][0]]['join_command'] }}"
-  when: 
-    - "'wrk' in group_names"
+    msg: "{{ node_check }}"
+
+- name: deb2
+  debug:
+    msg: "{{ join_command }}"
+
+- name: deb3
+  debug:
+    msg: "{{ kubelet_service.status.ActiveState }}"
 
 - name: Join worker nodes to cluster
   command: "{{ hostvars[groups['mgm'][0]]['join_command']['stdout'] }}"
