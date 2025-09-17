@@ -15,8 +15,6 @@
   register: join_command
   delegate_to: "{{ groups['mgm'][0] }}"
   run_once: true
-  when: 
-    - "'wrk' in group_names"
 
 - name: Check if kubelet is already active on worker
   systemd:
