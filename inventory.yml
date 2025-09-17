@@ -5,7 +5,7 @@ all:
   children:
     mgm:
       hosts:
-        k8s-master1:
+        k8s-master1.lan:
           ansible_host: k8s-master1.lan
 
     wrk:
