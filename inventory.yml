@@ -10,11 +10,11 @@ all:
 
     wrk:
       hosts:
-        k8s-worker1:
+        k8s-worker1.lan:
           ansible_host: k8s-worker1.lan
-        k8s-worker2:
+        k8s-worker2.lan:
           ansible_host: k8s-worker2.lan
-        k8s-worker3:
+        k8s-worker3.lan:
           ansible_host: k8s-worker3.lan
-        k8s-worker4:
+        k8s-worker4.lan:
           ansible_host: k8s-worker4.lan
