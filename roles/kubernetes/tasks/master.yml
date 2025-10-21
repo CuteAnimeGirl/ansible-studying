@@ -32,9 +32,24 @@
         group: "{{ k8s_user }}"
         mode: '0600'
 
-    - name: Install network plugin
-      command: kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
-      environment:
-        KUBECONFIG: "/home/{{ k8s_user }}/.kube/config"
+    - name: Install Calico operator CRDs
+      community.kubernetes.k8s:
+        state: present
+        src: "https://raw.githubusercontent.com/projectcalico/calico/v3.30.4/manifests/operator-crds.yaml"
+
+    - name: Install tigera operator
+      community.kubernetes.k8s:
+        state: present
+        src: "https://raw.githubusercontent.com/projectcalico/calico/v3.30.4/manifests/tigera-operator.yaml"
+
+    - name: Customize Calico configuration
+      template:
+        src: custom-resources.j2
+        dest: "/tmp/custom-resources.yaml"
+
+    - name: Install custom resources
+      community.kubernetes.k8s:
+        state: present
+        src: "/tmp/custom-resources.yaml"
 
   when: not kube_config.stat.exists
