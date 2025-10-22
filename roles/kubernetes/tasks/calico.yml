@@ -10,6 +10,7 @@
   kubernetes.core.k8s:
     state: present
     src: "https://raw.githubusercontent.com/projectcalico/calico/v3.30.4/manifests/tigera-operator.yaml"
+    namespace: tigera-operator
     wait: true
     wait_condition:
       type: Ready
