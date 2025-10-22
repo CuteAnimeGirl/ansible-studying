@@ -3,30 +3,14 @@
   kubernetes.core.k8s:
     state: present
     src: "https://raw.githubusercontent.com/projectcalico/calico/v3.30.4/manifests/operator-crds.yaml"
+    wait: true
     kubeconfig: "/home/{{ k8s_user }}/.kube/config"
-
-- name: Wait for CRDs to be established
-  kubernetes.core.k8s:
-    kind: CustomResourceDefinition
-    name: "{{ item }}"
-    wait: yes
-    kubeconfig: "/home/{{ k8s_user }}/.kube/config"
-  loop:
-    - ippools.crd.projectcalico.org
-    - networkpolicies.crd.projectcalico.org
-    - globalnetworkpolicies.crd.projectcalico.org
 
 - name: Install tigera operator
   kubernetes.core.k8s:
     state: present
     src: "https://raw.githubusercontent.com/projectcalico/calico/v3.30.4/manifests/tigera-operator.yaml"
-    kubeconfig: "/home/{{ k8s_user }}/.kube/config"
-
-- name: Wait for tigera-operator
-  kubernetes.core.k8s:
-    kind: Pod
-    namespace: tigera-operator
-    wait: yes
+    wait: true
     wait_condition:
       type: Ready
       status: "True"
