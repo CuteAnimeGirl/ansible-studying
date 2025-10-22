@@ -4,6 +4,11 @@
     state: present
     src: "https://raw.githubusercontent.com/projectcalico/calico/v3.30.4/manifests/operator-crds.yaml"
     kubeconfig: "/home/{{ k8s_user }}/.kube/config"
+    wait: true
+    wait_condition:
+      type: "Available"  # Тип условия
+      status: "True"     # Статус условия
+
 
 - name: Install tigera operator
   kubernetes.core.k8s:
