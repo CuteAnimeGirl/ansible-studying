@@ -1,27 +1,25 @@
-- name: Get current CRDs (for debugging)
-  kubernetes.core.k8s_info:
-    kind: CustomResourceDefinition
-    kubeconfig: "/home/{{ k8s_user }}/.kube/config"
-  register: crds_before
-
+---
 - name: Install Calico operator CRDs
   kubernetes.core.k8s:
     state: present
     src: "https://raw.githubusercontent.com/projectcalico/calico/v3.30.4/manifests/operator-crds.yaml"
+    wait: true
     kubeconfig: "/home/{{ k8s_user }}/.kube/config"
-  register: crd_install_result
 
-- name: Debug CRD installation
-  debug:
-    var: crd_install_result
-
-- name: Wait for CRDs to be established
-  kubernetes.core.k8s_info:
-    kind: CustomResourceDefinition
+- name: Install tigera operator
+  kubernetes.core.k8s:
+    state: present
+    src: "https://raw.githubusercontent.com/projectcalico/calico/v3.30.4/manifests/tigera-operator.yaml"
+    wait: true
     kubeconfig: "/home/{{ k8s_user }}/.kube/config"
-    label_selectors:
-      - "operator.tigera.io/name in (installation,apiserver,tigerastatus)"
-  register: calico_crds
-  until: calico_crds.resources | selectattr('status.conditions') | map(attribute='status.conditions') | flatten | selectattr('type', 'equalto', 'Established') | selectattr('status', 'equalto', 'True') | list | length > 0
-  retries: 12
-  delay: 10
+
+- name: Customize Calico configuration
+  template:
+    src: custom-resources.j2
+    dest: "/tmp/custom-resources.yaml"
+
+- name: Install custom resources
+  kubernetes.core.k8s:
+    state: present
+    src: "/tmp/custom-resources.yaml"
+    kubeconfig: "/home/{{ k8s_user }}/.kube/config"
