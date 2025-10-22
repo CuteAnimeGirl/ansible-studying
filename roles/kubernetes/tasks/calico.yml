@@ -3,7 +3,6 @@
   kubernetes.core.k8s:
     state: present
     src: "https://raw.githubusercontent.com/projectcalico/calico/v3.30.4/manifests/operator-crds.yaml"
-    wait: true
     kubeconfig: "/home/{{ k8s_user }}/.kube/config"
 
 - name: Install tigera operator
@@ -11,9 +10,6 @@
     state: present
     src: "https://raw.githubusercontent.com/projectcalico/calico/v3.30.4/manifests/tigera-operator.yaml"
     wait: true
-    wait_condition:
-      type: Ready
-      status: "True"
     kubeconfig: "/home/{{ k8s_user }}/.kube/config"
 
 - name: Customize Calico configuration
