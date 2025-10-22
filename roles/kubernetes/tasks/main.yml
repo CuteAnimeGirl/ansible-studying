@@ -1,16 +1,21 @@
 ---
 - name: Include repository configuration
   import_tasks: repos.yml
-  tags: repos
+  tags: repos,prefl
 
 - name: Include node configuration
   import_tasks: node.yml
-  tags: node
+  tags: node,prefl
 
 - name: Include master initialization
   import_tasks: master.yml
   when: "'mgm' in group_names"
-  tags: master
+  tags: master,prefl
+
+- name: Include cluster validation
+  import_tasks: calico.yml
+  when: "'mgm' in group_names"
+  tags: calico
 
 - name: Include worker join
   import_tasks: join.yml

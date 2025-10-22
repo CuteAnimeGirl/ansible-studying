@@ -32,43 +32,4 @@
         group: "{{ k8s_user }}"
         mode: '0600'
 
-    - name: Install Calico operator CRDs
-      kubernetes.core.k8s:
-        state: present
-        src: "https://raw.githubusercontent.com/projectcalico/calico/v3.30.4/manifests/operator-crds.yaml"
-        kubeconfig: "/home/{{ k8s_user }}/.kube/config"
-
-    - name: Wait for CRDs to be established
-      kubernetes.core.k8s:
-        kind: CustomResourceDefinition
-        wait: yes
-        kubeconfig: "/home/{{ k8s_user }}/.kube/config"
-
-    - name: Install tigera operator
-      kubernetes.core.k8s:
-        state: present
-        src: "https://raw.githubusercontent.com/projectcalico/calico/v3.30.4/manifests/tigera-operator.yaml"
-        kubeconfig: "/home/{{ k8s_user }}/.kube/config"
-
-    - name: Wait for tigera-operator
-      kubernetes.core.k8s:
-        kind: Pod
-        namespace: tigera-operator
-        wait: yes
-        wait_condition:
-          type: Ready
-          status: "True"
-        kubeconfig: "/home/{{ k8s_user }}/.kube/config"
-
-    - name: Customize Calico configuration
-      template:
-        src: custom-resources.j2
-        dest: "/tmp/custom-resources.yaml"
-
-    - name: Install custom resources
-      kubernetes.core.k8s:
-        state: present
-        src: "/tmp/custom-resources.yaml"
-        kubeconfig: "/home/{{ k8s_user }}/.kube/config"
-
   when: not kube_config.stat.exists
