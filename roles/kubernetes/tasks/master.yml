@@ -12,7 +12,7 @@
 - name: Initialize Kubernetes cluster
   block:
     - name: Initialize Kubernetes cluster
-      command: kubeadm init --pod-network-cidr={{ pod_network_cidr }}
+      command: kubeadm init --pod-network-cidr={{ pod_network_cidr }} --image-repository={{ container_registry }}
       register: kubeadm_init
 
     - name: Create .kube directory
