@@ -22,6 +22,6 @@
   tags: join
 
 - name: Include cluster validation
-  import_tasks: validate.yml
+  import_tasks: info.yml
   when: "'mgm' in group_names"
-  tags: validate
+  tags: info
