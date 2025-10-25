@@ -15,4 +15,4 @@ all:
         deb3.lan:
           ansible_host: deb3.lan
         deb4.lan:
-          ansible_host: deb2.lan
+          ansible_host: deb4.lan
