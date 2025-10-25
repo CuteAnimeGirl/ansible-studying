@@ -1,7 +1,7 @@
 ---
-kubernetes_version: "1.34"
-calico_version: "3.30.4"
 k8s_user: "us"
+kubernetes_version: "1.34"
 pod_network_cidr: "192.168.0.0/16"
-calico_encapsulation: "VXLANCrossSubnet"
 container_registry: "registry.aliyuncs.com/google_containers"
+calico_version: "3.30.4"
+calico_encapsulation: "VXLANCrossSubnet"
