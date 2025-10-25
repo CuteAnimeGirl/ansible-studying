@@ -6,7 +6,8 @@
 
 - name: Skip master initialization
   debug:
-    msg: "kubeadm init --pod-network-cidr={{ pod_network_cidr }} --image-repository={{ container_registry }}"
+    msg: "Skipping master initialization - Kubernetes cluster already exists"
+  when: kube_config.stat.exists
 
 - name: Initialize Kubernetes cluster
   block:
