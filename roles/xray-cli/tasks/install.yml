@@ -1,0 +1,30 @@
+---
+- name: Populate service facts
+  service_facts:
+
+- name: Install and configure Xray service
+  block:
+    - name: Install Xray
+      shell: bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
+
+    - name: Copy Xray config file
+      copy:
+        src: ~/sec/config.json
+        dest: /usr/local/etc/xray/config.json
+        owner: root
+        group: root
+        mode: '0644'
+      notify: restart xray
+
+    - name: Create APT proxy configuration
+      copy:
+        content: |
+          Acquire::http::Proxy "socks5h://127.0.0.1:10808/";
+          Acquire::https::Proxy "socks5h://127.0.0.1:10808/";
+          Acquire::socks::Proxy "socks5h://127.0.0.1:10808/";
+        dest: /etc/apt/apt.conf.d/proxy.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+  when: "'xray.service' not in services"

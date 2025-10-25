@@ -1,0 +1,16 @@
+---
+- name: Enable Xray
+  import_tasks: install.yml
+  tags: install
+
+- name: Enable Xray
+  debug:
+    msg: "Xray enabled"
+  notify: restart xray
+  tags: enable
+
+- name: Disable Xray
+  debug:
+    msg: "Xray disabled"
+  notify: disable xray
+  tags: disable
