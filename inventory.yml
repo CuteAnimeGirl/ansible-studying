@@ -5,16 +5,14 @@ all:
   children:
     mgm:
       hosts:
-        k8s-master1.lan:
-          ansible_host: k8s-master1.lan
+        deb1.lan:
+          ansible_host: deb1.lan
 
     wrk:
       hosts:
-        k8s-worker1.lan:
-          ansible_host: k8s-worker1.lan
-        k8s-worker2.lan:
-          ansible_host: k8s-worker2.lan
-        k8s-worker3.lan:
-          ansible_host: k8s-worker3.lan
-        k8s-worker4.lan:
-          ansible_host: k8s-worker4.lan
+        deb2.lan:
+          ansible_host: deb2.lan
+        deb3.lan:
+          ansible_host: deb3.lan
+        deb4.lan:
+          ansible_host: deb2.lan
