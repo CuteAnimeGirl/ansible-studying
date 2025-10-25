@@ -1,0 +1,24 @@
+---
+- name: Create APT proxy configuration
+  copy:
+    content: |
+      Acquire::http::Proxy "socks5h://127.0.0.1:10808/";
+      Acquire::https::Proxy "socks5h://127.0.0.1:10808/";
+      Acquire::socks::Proxy "socks5h://127.0.0.1:10808/";
+    dest: /etc/apt/apt.conf.d/proxy.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Copy Xray config file
+  copy:
+    src: ~/sec/config.json
+    dest: /usr/local/etc/xray/config.json
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Enable Xray
+  debug:
+    msg: "Xray enabled"
+  notify: restart xray

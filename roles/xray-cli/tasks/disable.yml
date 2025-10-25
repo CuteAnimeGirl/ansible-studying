@@ -1,0 +1,15 @@
+---
+- name: Disable Xray
+  debug:
+    msg: "Xray disabled"
+  notify: disable xray
+
+- name: Remove Xray configuration file
+  file:
+    path: /usr/local/etc/xray/config.json
+    state: absent
+
+- name: Remove APT proxy configuration
+  file:
+    path: /etc/apt/apt.conf.d/proxy.conf
+    state: absent
