@@ -1,5 +1,5 @@
 ---
-- name: Configure Kubernetes nodes
+- name: Configure xray clients
   hosts: all
   become: yes
   roles:
