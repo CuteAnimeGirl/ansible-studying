@@ -4,9 +4,3 @@
     name: xray
     state: restarted
     enabled: yes
-
-- name: disable xray
-  systemd:
-    name: xray
-    state: stopped
-    enabled: no

@@ -1,8 +1,9 @@
 ---
-- name: Disable Xray
-  debug:
-    msg: "Xray disabled"
-  notify: disable xray
+- name: disable xray
+  systemd:
+    name: xray
+    state: stopped
+    enabled: no
 
 - name: Remove Xray configuration file
   file:

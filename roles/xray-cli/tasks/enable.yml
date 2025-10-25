@@ -18,7 +18,8 @@
     group: root
     mode: '0644'
 
-- name: Enable Xray
-  debug:
-    msg: "Xray enabled"
-  notify: restart xray
+- name: start xray
+  systemd:
+    name: xray
+    state: started
+    enabled: yes
