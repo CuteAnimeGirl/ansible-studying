@@ -2,14 +2,14 @@
 - name: Install Calico operator CRDs
   kubernetes.core.k8s:
     state: present
-    src: "https://raw.githubusercontent.com/projectcalico/calico/v3.30.4/manifests/operator-crds.yaml"
+    src: "https://raw.githubusercontent.com/projectcalico/calico/v{{ calico_version }}/manifests/operator-crds.yaml"
     wait: true
     kubeconfig: "/home/{{ k8s_user }}/.kube/config"
 
 - name: Install tigera operator
   kubernetes.core.k8s:
     state: present
-    src: "https://raw.githubusercontent.com/projectcalico/calico/v3.30.4/manifests/tigera-operator.yaml"
+    src: "https://raw.githubusercontent.com/projectcalico/calico/v{{ calico_version }}/manifests/tigera-operator.yaml"
     wait: true
     kubeconfig: "/home/{{ k8s_user }}/.kube/config"
 

@@ -78,12 +78,7 @@
     - name: Configure containerd
       copy:
         dest: /etc/containerd/config.toml
-        content: |
-          {{ 
-            containerd_config.stdout 
-            | regex_replace('SystemdCgroup\\s*=\\s*false', 'SystemdCgroup = true') 
-            | regex_replace('sandbox_image = ".*"', 'sandbox_image = "{{ container_registry }}/pause:3.10.1"') 
-          }}
+        content: "{{ containerd_config.stdout | regex_replace('SystemdCgroup\\s*=\\s*false', 'SystemdCgroup = true') | regex_replace('sandbox_image = \".*\"', 'sandbox_image = \"' + container_registry + '/pause:3.10.1\"') }}"
 
     - name: Restart and enable containerd
       systemd:
