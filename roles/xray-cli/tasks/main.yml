@@ -10,3 +10,27 @@
 - name: Disable Xray
   import_tasks: disable.yml
   tags: disable
+
+- name: APT proxy clients enable
+  copy:
+    content: |
+      Acquire::http::Proxy "socks5h://ansible-server.lan:10808/";
+      Acquire::https::Proxy "socks5h://ansible-server.lan:10808/";
+      Acquire::socks::Proxy "socks5h://ansible-server.lan:10808/";
+    dest: /etc/apt/apt.conf.d/proxy.conf
+    owner: root
+    group: root
+    mode: '0644'
+    tags: cli-en
+
+- name: APT proxy clients disable
+  copy:
+    content: |
+      #Acquire::http::Proxy "socks5h://ansible-server.lan:10808/";
+      #Acquire::https::Proxy "socks5h://ansible-server.lan:10808/";
+      #Acquire::socks::Proxy "socks5h://ansible-server.lan:10808/";
+    dest: /etc/apt/apt.conf.d/proxy.conf
+    owner: root
+    group: root
+    mode: '0644'
+    tags: cli-dis
